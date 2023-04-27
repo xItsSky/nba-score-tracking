@@ -1,0 +1,17 @@
+<section class="nba-score-tracker-teams" *ngIf="teams$ | async as teamsPageable">
+  <form class="nba-score-tracker-teams__selection-form" (ngSubmit)="addTeamCard(+teamSelect.value)">
+    <select #teamSelect id="teamSelect">
+      <option *ngFor="let team of teamsPageable.data" [value]="team.id">{{ team.full_name }}</option>
+    </select>
+    <button nzType="primary" id="trackBtn" nz-button>
+      Track team
+    </button>
+  </form>
+  <section class="nba-score-tracker-teams__team-previews" *ngIf="teamsToDisplay$ | async as teamToDisplay">
+    <article class="nba-score-tracker-teams__team-previews__preview-card" *ngFor="let team of teamToDisplay">
+      <nba-score-tracker-team-details *ngIf="team" [team]="team"
+                                      (goToResultsEvent)="goToResults($event)"
+                                      (closeCardEvent)="removeTeamCard($event)"/>
+    </article>
+  </section>
+</section>

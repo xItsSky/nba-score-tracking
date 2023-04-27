@@ -1,0 +1,5 @@
+<article class="nba-score-tracker-card-header" *ngIf="team">
+  <button *ngIf="closeBtnLabel" (click)="close()" nzType="link" [id]="closeBtnLabel" nz-button>X</button>
+  <h2>{{ team.full_name }} [{{ team.abbreviation }}]</h2>
+  <p>{{ team.conference | conference }}</p>
+</article>

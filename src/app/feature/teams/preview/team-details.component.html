@@ -1,0 +1,35 @@
+<section class="nba-score-tracker-team-preview" *ngIf="team">
+  <nz-card [nzTitle]="teamPreviewCardTitle" class="nba-score-tracker-team-preview__card">
+    <article *ngIf="gamesResults$ | async as gamesResults; else noData"
+             class="nba-score-tracker-team-preview__card__card-content">
+      <img [src]="'https://interstate21.com/nba-logos/' + team.abbreviation + '.png'" [alt]="team.abbreviation + ' icon'"
+           class="nba-score-tracker-team-preview__card__card-content__logo">
+      <div class="data-block">
+        <span class="data-block__title">Result of past {{ daysOfHistory }} days: </span>
+        <div class="data-block__data-container">
+          <span *ngFor="let result of gamesResults.results" class="data-block__data-container__data"
+                [ngClass]="{win: result, lose: !result}">{{ result ? 'W' : 'L' }}</span>
+        </div>
+      </div>
+      <div class="data-block">
+        <span class="data-block__title">Avg pts scored: </span>
+        <span class="data-block__data">{{ gamesResults.scoredAvg | number: '1.0-0' }}</span>
+      </div>
+      <div class="data-block">
+        <span class="data-block__title">Avg pts conceded: </span>
+        <span class="data-block__data">{{ gamesResults.concededAvg | number: '1.0-0' }}</span>
+      </div>
+      <button nzType="primary" (click)="goToResults()" [id]="resultLabel | async" nz-button>See game results <span nz-icon nzType="forward" nzTheme="outline"></span></button>
+    </article>
+  </nz-card>
+
+  <ng-template #teamPreviewCardTitle>
+    <nba-score-tracker-team-card-title [team]="team" [closeBtnLabel]="removeLabel | async" (closeBtnEvent)="closeCard()" />
+  </ng-template>
+</section>
+
+<ng-template #noData>
+  <article class="nba-score-tracker-team-preview__card__card-content">
+    <nz-empty [nzNotFoundContent]="noDataLabel" />
+  </article>
+</ng-template>

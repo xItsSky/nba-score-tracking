@@ -22,7 +22,18 @@
     "lib": [
       "ES2022",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@nba-score-tracking/core/*": [
+        "src/app/core/*"
+      ],
+      "@nba-score-tracking/feature/*": [
+        "src/app/feature/*"
+      ],
+      "@nba-score-tracking/shared/*": [
+        "src/app/shared/*"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
